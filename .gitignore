@@ -1,0 +1,15 @@
+*.o
+*.a
+*.so
+
+*.exe
+*.out
+*.app
+
+lex.yy.c
+y.tab.c
+y.tab.h
+
+.vscode/
+.DS_Store
+*.swp
