@@ -3,7 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "ast.h"
-
+#include "symtab.h"
+#include "semantic.h"
 int yylex();
 int yyerror(const char *s);
 node* root = NULL;
@@ -252,6 +253,9 @@ void printtree(node *tree, int depth) {
 
 int main() {
     if (yyparse() == 0) {
+        
+        check_semantics(root); 
+        
         printf("(CODE\n");
         printtree(root, 1);
         printf("\n)\n");
@@ -266,6 +270,10 @@ int yyerror(const char* s) {
 node *mknode(char* token, node* left, node* right) {
     node *n = (node*)malloc(sizeof(node));
     n->token = token ? strdup(token) : NULL;
-    n->left = left; n->right = right;
+    
+    n->eval_type = TYPE_UNKNOWN; 
+    
+    n->left = left; 
+    n->right = right;
     return n;
 }

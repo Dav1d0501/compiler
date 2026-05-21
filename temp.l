@@ -89,8 +89,7 @@ IDENTIFIER  {ALPHA}{ALPHANUM}*
 '([^'\n\\]|\\.)' { yylval.cval = yytext[1]; return LIT_CHAR; }
 
 \"([^\"\n\\]|\\.)*\" { 
-    yylval.sval = strdup(yytext + 1); 
-    yylval.sval[yyleng - 2] = '\0'; 
+    yylval.sval = strdup(yytext); 
     return LIT_STRING; 
 }
 {IDENTIFIER}    { yylval.sval = strdup(yytext); return IDENTIFIER; }
