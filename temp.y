@@ -74,11 +74,11 @@ proc: PROC IDENTIFIER '(' arg_list ')' '{' gen_stmts '}' {
 
 /*  פרמטרים וטיפוסים  */
 arg_list: args ':' type ';' arg_list { 
-            node* t = mknode($3->token, $1, NULL); 
+            node* t = mknode($3->token, $1, NULL);
             $$ = mknode("", t, $5); 
         }
         | args ':' type { 
-            $$ = mknode($3->token, $1, NULL); 
+            $$ = mknode($3->token, $1, NULL);
         }
         | { $$ = mknode("NONE", NULL, NULL); }
         ;
@@ -121,7 +121,8 @@ stmt: if_stmt | for_stmt | assign_stmt | while_stmt
     | RETURN expr ';' { $$ = mknode("RET", $2, NULL); }
     | RETURN ';' { $$ = mknode("RET", mknode("NONE", NULL, NULL), NULL); }
     | IDENTIFIER '(' expr_list ')' ';' { $$ = mknode("CALL", mknode($1, NULL, NULL), $3); }
-    | '{' gen_stmts '}' { $$ = mknode("BLOCK", $2, NULL); };
+    | '{' gen_stmts '}' { $$ = mknode("BLOCK", $2, NULL); }
+    |funcs { $$ = $1; }
 
 if_stmt: IF '(' expr ')' stmt { $$ = mknode("IF", $3, $5); }
        | IF '(' expr ')' stmt ELSE stmt { $$ = mknode("IF-ELSE", $3, mknode("", $5, $7)); };
@@ -217,7 +218,7 @@ void printtree_internal(node* tree, int depth) {
     
     if (tree->token == NULL || strcmp(tree->token, "") == 0) {
         printtree_internal(tree->left, depth);
-        if (tree->left && tree->right) printf("\n");
+        if (tree->left && tree->right) printf("\n"); 
         printtree_internal(tree->right, depth);
         return;
     }

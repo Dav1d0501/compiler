@@ -4,14 +4,14 @@
 #include <string.h>
 
 int line_number = 1;
-/* פונקציית שגיאה למקרה שנמצא תו לא חוקי */
+/*פונקציית שגיאה */
 void lex_error(const char* msg) {
     printf("Lexical Error: %s at text '%s' on line %d\n", msg, yytext, line_number);
     exit(1);
 }
 %}
 
-/* --- ביטויים רגולריים --- */
+/*ביטויים רגולריים*/
 DIGIT       [0-9]
 HEX_DIGIT   [0-9a-fA-F]
 ALPHA       [a-zA-Z]
@@ -31,7 +31,7 @@ IDENTIFIER  {ALPHA}{ALPHANUM}*
                                     if(yytext[i] == '\n') line_number++;
                                 } }
 
- /* --- מילות מפתח --- */
+ /*  מילות מפתח  */
 "bool"          { return BOOL; }
 "char"          { return CHAR; }
 "int"           { return INT; }
@@ -52,7 +52,7 @@ IDENTIFIER  {ALPHA}{ALPHANUM}*
 "true"          { return TOK_TRUE; }
 "false"         { return TOK_FALSE; }
 
-    /* --- אופרטורים --- */
+    /*  אופרטורים  */
 "&&"            { return AND; }
 "||"            { return OR; }
 "=="            { return EQ; }
