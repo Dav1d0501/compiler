@@ -421,6 +421,22 @@ void traverse(node* n) {
             else if (child_t == TYPE_REAL_PTR) n->eval_type = TYPE_REAL;
             else if (child_t == TYPE_CHAR_PTR) n->eval_type = TYPE_CHAR;
         }
+        if (strcmp(n->token, "[]") == 0) {
+            DataType arr_type = n->left->eval_type;
+            DataType index_type = n->right->eval_type;
+            
+            if (arr_type != TYPE_STRING) {
+                printf("Semantic Error: Indexing operator [] can only be applied to strings .\n");
+                exit(1);
+            }
+            
+            if (index_type != TYPE_INT) {
+                printf("Semantic Error: Array index must be of type integer .\n");
+                exit(1);
+            }
+            
+            n->eval_type = TYPE_CHAR;
+        }
     }
 
     if(new_scope_opened) {

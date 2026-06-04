@@ -4,11 +4,10 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-# Compile the lex and yacc files - Change if needed
+# Compile the lex and yacc files
 lex temp.l
 yacc -d temp.y
+
 gcc y.tab.c symtab.c semantic.c -o compiler -lfl
+
 ./compiler < input.txt > output.txt
-./compiler < input1.txt > output1.txt
-./compiler < input2.txt > output2.txt
-./compiler < input3.txt > output3.txt
