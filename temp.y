@@ -250,7 +250,7 @@ void printtree_internal(node* tree, int depth) {
 void printtree(node *tree, int depth) {
     printtree_internal(tree, depth);
 }
-
+extern char* generate_3ac(node* tree);
 int main() {
     if (yyparse() == 0) {
         
@@ -259,6 +259,10 @@ int main() {
         printf("(CODE\n");
         printtree(root, 1);
         printf("\n)\n");
+
+        printf("\n--- Generated 3AC ---\n");
+        generate_3ac(root);
+        printf("---------------------\n");
     }
     return 0;
 }
